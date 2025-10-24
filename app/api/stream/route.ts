@@ -11,6 +11,15 @@ export async function POST(req: Request) {
       prompt: prompt,
     });
 
+    // Tracking usage token of the model
+    result.usage.then((usage) => {
+      console.log({
+        inputToken: usage.inputTokens,
+        outputToken: usage.outputTokens,
+        totalToken: usage.totalTokens,
+      });
+    });
+
     return result.toUIMessageStreamResponse();
   } catch (error) {
     console.error("Error generating stream text:", error);

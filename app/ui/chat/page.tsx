@@ -36,14 +36,16 @@ export default function ChatPage() {
         {error && <div className="text-red-500">{error.message}</div>}
         {messages.map((message) => (
           <div key={message.id} className="my-3">
-            <div>{message.role === "user" ? "You:" : "Bondeth AI:"}</div>
+            <div>
+              {message.role === "user" ? "You:" : "Assistant:"}
+            </div>
             {message.parts.map((part, index) => {
               switch (part.type) {
                 case "text":
                   return (
                     <div
                       key={`${message.id}-${index}`}
-                      className="whitespace-pre-wrap w-fit py-3 px-5 bg-muted rounded-xl"
+                      className="whitespace-pre-wrap leading-relaxed w-fit py-3 px-5 bg-muted rounded-xl"
                     >
                       {part.text}
                     </div>

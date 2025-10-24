@@ -35,15 +35,15 @@ export default function ChatPage() {
       <div className="min-h-[90%] w-full py-10 overflow-y-scroll no-scrollbar">
         {error && <div className="text-red-500">{error.message}</div>}
         {messages.map((message) => (
-          <div key={message.id}>
-            <div>{message.role === "user" ? "You:" : "Assistant:"}</div>
+          <div key={message.id} className="my-3">
+            <div>{message.role === "user" ? "You:" : "Bondeth AI:"}</div>
             {message.parts.map((part, index) => {
               switch (part.type) {
                 case "text":
                   return (
                     <div
                       key={`${message.id}-${index}`}
-                      className="whitespace-pre-wrap"
+                      className="whitespace-pre-wrap w-fit py-3 px-5 bg-muted rounded-xl"
                     >
                       {part.text}
                     </div>
@@ -54,13 +54,18 @@ export default function ChatPage() {
             })}
           </div>
         ))}
-        {(status === "submitted" || status === "streaming") && <Spinner />}
+        {(status === "submitted" || status === "streaming") && (
+          <div className="flex items-center gap-1 text-xs">
+            <Spinner />
+            <p>Loading...</p>
+          </div>
+        )}
       </div>
 
       {/* Input Text - Prompt */}
       <form
         onSubmit={handleSubmit}
-        className="h-[10%] w-full flex items-center justify-center"
+        className="h-[10%] w-full flex items-center justify-center py-3"
       >
         <div className="w-full flex items-center justify-between gap-3 px-1">
           <Input

@@ -46,13 +46,14 @@ export default function CompletionPage() {
     <div className="h-screen overflow-y-hidden w-1/2 mx-auto flex flex-col">
       {/* Display Completion Text */}
       <div className="min-h-[90%] w-full py-10 overflow-y-scroll no-scrollbar">
-        {error && <AIResponseMessage response={`Sorry!. ${error}`} />}
         {isLoading ? (
-          <AIResponseMessage response={"Loading..."} />
+          <AIResponseMessage type="loading" />
         ) : completion ? (
-          <AIResponseMessage response={completion} />
+          <AIResponseMessage type="ok" response={completion} />
+        ) : error ? (
+          <AIResponseMessage type="error" response={error} />
         ) : (
-          <AIResponseMessage response={"Is there anything I can help you?"} />
+          <AIResponseMessage type="null" />
         )}
       </div>
 

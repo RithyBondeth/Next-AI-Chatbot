@@ -9,7 +9,7 @@ const ubuntu = Ubuntu({
 });
 
 export const metadata: Metadata = {
-  title: "Bondeth AI",
+  title: "Bondeth AI Agent",
   description: "A smart chat bot build by bondeth",
 };
 

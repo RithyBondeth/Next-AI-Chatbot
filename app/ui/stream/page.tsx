@@ -27,7 +27,7 @@ export default function StreamPage() {
         {error && <AIResponseMessage type="error" response={error.message} />}
         {isLoading && !completion && <AIResponseMessage type="loading" />}
         {completion && <AIResponseMessage type="ok" response={completion} />}
-        {!isLoading && !completion && <AIResponseMessage type="null"/>}
+        {!isLoading && !completion && <AIResponseMessage type="null" />}
       </div>
 
       {/* Input Text - Prompt */}

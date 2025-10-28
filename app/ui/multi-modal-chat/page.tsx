@@ -7,6 +7,8 @@ import React, { useState, useRef } from "react";
 import { useChat } from "@ai-sdk/react";
 import { Spinner } from "@/components/ui/spinner";
 import { DefaultChatTransport } from "ai";
+import { file } from "zod";
+import Image from "next/image";
 
 type TUIMessage = {
   id: string;
@@ -32,8 +34,13 @@ export default function MultiModalChatPage() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendMessage({ text: input });
+    sendMessage({ text: input, files: files });
     setInput("");
+    setFiles(undefined);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   return (
@@ -55,6 +62,18 @@ export default function MultiModalChatPage() {
                       {part.text}
                     </div>
                   );
+                case "file":
+                  if (part.mediaType?.startsWith("image/")) {
+                    return (
+                      <Image
+                        key={`${message.id}-${index}`}
+                        src={part.url}
+                        alt={part.filename ?? `attachment-${index}`}
+                        width={500}
+                        height={500}
+                      />
+                    );
+                  }
                 default:
                   null;
               }
@@ -70,9 +89,14 @@ export default function MultiModalChatPage() {
       </div>
 
       {/* Input Text - Prompt */}
+      <div className=" p-2">
+        <p className="text-sm">
+          {files && files.length > 0 && `${file.length} file(s) attached`}
+        </p>
+      </div>
       <form
         onSubmit={handleSubmit}
-        className="h-[10%] w-full flex items-center justify-center py-3"
+        className="h-[10%] w-full flex items-center justify-center"
       >
         <div className="w-full flex items-center justify-between gap-3 px-1">
           <Input
@@ -92,8 +116,24 @@ export default function MultiModalChatPage() {
             </Button>
           ) : (
             <div className="flex items-center gap-1">
-              <Button className="text-xs h-12">
+              <Button
+                className="text-xs h-12"
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+              >
                 <LucidePaperclip />
+                <input
+                  type="file"
+                  id="file-upload"
+                  hidden
+                  multiple
+                  ref={fileInputRef}
+                  onChange={(event) => {
+                    if (event.target.files) {
+                      setFiles(event.target.files);
+                    }
+                  }}
+                />
               </Button>
               <Button
                 className="text-xs h-12"

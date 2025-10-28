@@ -38,6 +38,8 @@ export default function GenerateImagePage() {
       setError(
         error instanceof Error ? error.message : "Failed to generating image"
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 

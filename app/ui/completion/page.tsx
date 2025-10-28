@@ -62,14 +62,14 @@ export default function CompletionPage() {
         onSubmit={handleComplete}
         className="h-[10%] w-full flex items-center justify-center"
       >
-        <div className="w-full flex items-center justify-between gap-3">
+        <div className="w-full flex items-center justify-between gap-3 px-1">
           <Input
             placeholder="Enter your message here..."
             className="h-12"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
           />
-          <Button className="text-xs h-12" type="submit">
+          <Button className="text-xs h-12" type="submit" disabled={isLoading}>
             Send
             <LucideSendHorizonal />
           </Button>

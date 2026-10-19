@@ -37,8 +37,8 @@ export default function StructureArrayPage() {
           object.map((pokemon, index) => (
             <Card key={index} className="mb-3">
               <CardHeader>
-                <CardTitle>Pokemon's name - {pokemon?.name}</CardTitle>
-                <CardDescription>Pokemon's Abilities</CardDescription>
+                <CardTitle>Pokemon&apos;s name - {pokemon?.name}</CardTitle>
+                <CardDescription>Pokemon&apos;s Abilities</CardDescription>
               </CardHeader>
               <CardContent>
                 {pokemon?.abilities?.map((ability, index) => (
